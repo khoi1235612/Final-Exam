@@ -16,10 +16,6 @@ int KeyReg3[NUM_BUTTONS] = { SET };
 int TimeOutForKeyPress = TIME_FOR_PRESS_KEY;
 int button_flag[NUM_BUTTONS] = { RESET };
 
-int button_inc_press_time = 0;
-int button_dec_press_time = 0;
-int counter = 0;
-
 int is_button_pressed(int index) {
 	if (button_flag[index] == 1) {
 		button_flag[index] = 0;
@@ -28,6 +24,17 @@ int is_button_pressed(int index) {
 	return 0;
 }
 
+int is_button_held(int index) {
+	setTimer3(300);
+	if (timer3_flag == 1) {
+		if (button_flag[index] == 1){
+			button_flag[index] = 0;
+			return 1;
+		}
+		setTimer3(100);
+	}
+	return 0;
+}
 void subKeyProcess(int index) {
 	//TODO
 	button_flag[index] = 1;
@@ -68,72 +75,12 @@ void getKeyInput() {
 
 					}
 				}
-				}
-
+			}
 			}
 
 	}
 }
 
-void keyHold() {
-	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_RESET)
-	    {
-	      if (HAL_GetTick() - button_inc_press_time > 3000)
-	      {
-	        // Button INC is pressed for more than 3 seconds
-	        counter++;
-	        if (counter > 9)
-	        {
-	          counter = 0;
-	        }
-	        display7SEG(counter);
-	      }
-	      else if (HAL_GetTick() - button_inc_press_time > 1000)
-	      {
-	        // Button INC is pressed for more than 1 second but less than 3 seconds
-	        counter++;
-	        if (counter > 9)
-	        {
-	          counter = 0;
-	        }
-	        display7SEG(counter);
-	      }
-	    }
-	    else
-	    {
-	      // Button INC is released
-	      button_inc_press_time = 0;
-	    }
-
-	    if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_RESET)
-	    {
-	      if (HAL_GetTick() - button_dec_press_time > 3000)
-	      {
-	        // Button DEC is pressed for more than 3 seconds
-	        counter--;
-	        if (counter < 0)
-	        {
-	          counter = 9;
-	        }
-	        display7SEG(counter);
-	      }
-	      else if (HAL_GetTick() - button_dec_press_time > 1000)
-	      {
-	        // Button DEC is pressed for more than 1 second but less than 3 seconds
-	        counter--;
-	        if (counter < 0)
-	        {
-	          counter = 9;
-	        }
-	        display7SEG(counter);
-	      }
-	    }
-	    else
-	    {
-	      // Button DEC is released
-	      button_dec_press_time = 0;
-	    }
-}
 
 
 
