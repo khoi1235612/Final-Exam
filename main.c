@@ -96,6 +96,7 @@ int main(void)
   setTimer0(1);
   setTimer1(1);
   setTimer2(1);
+  setTimer3(1);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
