@@ -30,6 +30,14 @@ void countSystem(){
 		setTimer0(100);
 	}
 
+	if (is_button_held(1) == 1) {
+		wrapAroundCounter(n++);
+	}
+
+	if (is_button_held(2) == 1) {
+		wrapAroundCounter(n--);
+	}
+
 	if (timer1_flag == 1) {
 			if (is_button_pressed(0) == 0 && is_button_pressed(1) == 0 && is_button_pressed(2) == 0) {
 				n--;
