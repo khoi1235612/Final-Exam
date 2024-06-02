@@ -95,6 +95,7 @@ int main(void)
   /* USER CODE END 2 */
   setTimer0(1);
   setTimer1(1);
+  setTimer2(1);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -229,7 +230,6 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	timerRun();
 	getKeyInput();
-	keyHold();
 
 }
 /* USER CODE END 4 */
